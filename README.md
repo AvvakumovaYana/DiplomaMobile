@@ -9,7 +9,7 @@
 + [Интеграция с Allure Report](#-интеграция-с-allure-report)
 + [Интеграция с Allure TestOps](#-интеграция-с-allure-testops)
 + [Уведомления в Telegram с использованием бота](#-уведомления-в-telegram-с-использованием-бота)
-+ [Видео примера запуска тестов в BrowserStack](#-видео-примера-запуска-тестов-в-selenoid)
++ [Видео примера запуска тестов в BrowserStack](#-видео-примера-запуска-тестов-в-BrowserStack)
 ---
 
 ## Описание проекта и используемый стек
@@ -144,7 +144,7 @@ clean main_mobile
 </p>
 
 ---
-## <img width="4%" style="vertical-align:middle" title="Selenoid" src="media/logo/Browserstack.svg"> Видео примера запуска тестов в BrowserStack
+## <img width="4%" style="vertical-align:middle" title="BrowserStack" src="media/logo/Browserstack.svg"> Видео примера запуска тестов в BrowserStack
 
 В отчетах Allure для каждого теста прикреплен не только скриншот, но и видео прохождения теста.
 <p align="center">
