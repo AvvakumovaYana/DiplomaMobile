@@ -1,7 +1,8 @@
 package drivers;
 
 import com.codeborne.selenide.WebDriverProvider;
-import config.mobile.DeviceConfig;
+import config.mobile.AppiumConfig;
+import config.mobile.ApplicationConfig;
 import io.appium.java_client.android.AndroidDriver;
 import org.aeonbits.owner.ConfigFactory;
 import org.openqa.selenium.Capabilities;
@@ -14,12 +15,13 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class AppiumDriver implements WebDriverProvider {
-    private static final DeviceConfig deviceConfig = ConfigFactory.create(DeviceConfig.class);
+    private static final AppiumConfig deviceConfig = ConfigFactory.create(AppiumConfig.class);
+    private static final ApplicationConfig applicationConfig = ConfigFactory.create(ApplicationConfig.class);
 
     @Nonnull
     @Override
     public WebDriver createDriver(@Nonnull Capabilities capabilities) {
-        System.out.println("app: " + deviceConfig.app());
+        System.out.println("app: " + applicationConfig.app());
         System.out.println("Url: " + deviceConfig.url());
 
         MutableCapabilities caps = new MutableCapabilities();
@@ -29,11 +31,11 @@ public class AppiumDriver implements WebDriverProvider {
         caps.setCapability("appium:automationName", deviceConfig.automationName());
 
         ClassLoader classLoader = getClass().getClassLoader();
-        File file = new File(classLoader.getResource(deviceConfig.app()).getFile());
+        File file = new File(classLoader.getResource(applicationConfig.app()).getFile());
         caps.setCapability("appium:app", file.getAbsolutePath());
 
-        caps.setCapability("appium:appPackage", deviceConfig.appWaitPackage());
-        caps.setCapability("appium:appActivity", deviceConfig.appWaitActivity());
+        caps.setCapability("appium:appPackage", applicationConfig.appPackage());
+        caps.setCapability("appium:appActivity", applicationConfig.appActivity());
         caps.setCapability("appium:adbExecTimeout", 120000);
 
         System.out.println("APP: " + caps.getCapability("appium:app"));

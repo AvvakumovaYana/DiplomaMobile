@@ -1,12 +1,13 @@
 package pages.mobile;
 
 import com.codeborne.selenide.SelenideElement;
-import static com.codeborne.selenide.Condition.text;
+
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$$;
 import static io.appium.java_client.AppiumBy.id;
 import static org.openqa.selenium.By.xpath;
 
-public class AuthorizationPage {
+public class AuthorizationScreen extends BaseScreen {
     private final SelenideElement logInButton = $(xpath("//androidx.compose.ui.platform.ComposeView/android.view.View/android.view.View[3]/android.widget.Button"));
     private final SelenideElement singInWithEmailButton = $(id("com.trello:id/email"));
     private final SelenideElement enterYourEmailField = $(xpath("//android.widget.EditText[@resource-id=\"username\"]"));
@@ -14,46 +15,42 @@ public class AuthorizationPage {
     private final SelenideElement continueButton = $(xpath("//android.widget.Button[@resource-id=\"login-submit\"]"));
     private final SelenideElement enterPasswordButton = $(xpath("//android.widget.EditText[@resource-id=\"password\"]"));
     private final SelenideElement nextLogInButton = $(xpath("//android.widget.Button[@resource-id=\"login-submit\"]"));
-    private final SelenideElement pageLabel = $(xpath("//android.widget.TextView[@text=\"Boards\"]"));
+    private final SelenideElement trelloLogo = $(xpath("//android.widget.Image[@text=\"Trello\"]"));
 
-    public AuthorizationPage clickLogInButton() {
+    public void clickLogInButton() {
         logInButton.click();
-        return this;
     }
 
-    public AuthorizationPage clickSingInWithEmailButton() {
+    public void clickSingInWithEmailButton() throws InterruptedException {
         singInWithEmailButton.click();
-        return this;
+        ensureElement(trelloLogo, 20);
     }
 
-    public AuthorizationPage fillEnterYourEmailField() {
+    public void fillEnterYourEmailField(String login) {
         enterYourEmailField.click();
-        enterYourEmailField.sendKeys("yana.for.test@gmail.com");
-        return this;
+        enterYourEmailField.sendKeys(login);
     }
 
-    public AuthorizationPage clickLogInToContinueLabel() {
+    public void clickLogInToContinueLabel() {
         logInToContinueLabel.click();
-        return this;
     }
 
-    public AuthorizationPage clickContinueButton() {
+    public void clickContinueButton() {
         continueButton.click();
-        return this;
     }
 
-    public AuthorizationPage fillEnterPasswordButton() {
-        enterPasswordButton.sendKeys("yanafortest");
-        return this;
+    public void fillEnterPasswordButton(String password) throws InterruptedException {
+        ensureElement(enterPasswordButton, 10);
+        enterPasswordButton.sendKeys(password);
     }
 
-    public AuthorizationPage clickNextLogInButton() {
+    public void clickNextLogInButton() {
         nextLogInButton.click();
-        return this;
     }
 
-    public AuthorizationPage checkPageLabel() {
-        pageLabel.shouldHave(text("Boards"));
-        return this;
+    public void checkAndClickAddAnotherAccountButton() {
+        var list = $$(xpath("//android.widget.Button[@resource-id=\"navigate-to-login-prompt\"]"));
+        if (!list.isEmpty())
+            list.first().click();
     }
 }

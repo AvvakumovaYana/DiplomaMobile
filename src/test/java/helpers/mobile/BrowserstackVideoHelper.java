@@ -1,17 +1,18 @@
 package helpers.mobile;
 
-import config.mobile.DeviceConfig;
+import config.mobile.credentials.BrowserstackCredentials;
 import org.aeonbits.owner.ConfigFactory;
+
 import static io.restassured.RestAssured.given;
 
-public class Browserstack {
-    private static final DeviceConfig config = ConfigFactory.create(DeviceConfig.class, System.getProperties());
+public class BrowserstackVideoHelper {
+    private static final BrowserstackCredentials browserstackCredentials = ConfigFactory.create(BrowserstackCredentials.class, System.getProperties());
 
     public static String videoUrl(String sessionId) {
         String url = String.format("https://api.browserstack.com/app-automate/sessions/%s.json", sessionId);
 
         return given()
-                .auth().basic(config.username(), config.password())
+                .auth().basic(browserstackCredentials.BrowserstackUsername(), browserstackCredentials.BrowserstackPassword())
                 .get(url)
                 .then()
                 .log().status()

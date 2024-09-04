@@ -1,63 +1,57 @@
 package tests.mobile;
 
+import config.mobile.credentials.ApplicationCredentials;
 import io.qameta.allure.AllureId;
 import io.qameta.allure.Owner;
+import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import pages.mobile.AuthorizationPage;
+import pages.mobile.AuthorizationScreen;
+import pages.mobile.BoardsScreen;
 
-import static com.codeborne.selenide.Selenide.$$;
-import static io.appium.java_client.AppiumBy.*;
 import static io.qameta.allure.Allure.step;
 
 @Owner("Аввакумова Яна")
 @Tag("mobile")
-
 public class AuthorizationTest extends TestBase {
-    private AuthorizationPage authorizationPage = new AuthorizationPage();
+    private static final ApplicationCredentials applicationCredentials = ConfigFactory.create(ApplicationCredentials.class, System.getProperties());
+    private final AuthorizationScreen authorizationScreen = new AuthorizationScreen();
+    private final BoardsScreen boardsScreen = new BoardsScreen();
 
     @Test
     @AllureId("34130")
     @DisplayName("Проверка авторизации в приложении Trello")
-    void loginTest() throws InterruptedException {
+    void loginTest() {
         step("Нажимаем на кнопку 'Log in'", () -> {
-            authorizationPage.clickLogInButton();
+            authorizationScreen.clickLogInButton();
         });
         step("Нажимаем на кнопку 'SIGN IN WITH EMAIL'", () -> {
-            authorizationPage.clickSingInWithEmailButton();
+            authorizationScreen.clickSingInWithEmailButton();
         });
-
-        Thread.sleep(15000);
 
         step("Нажимаем на кнопку 'Add another account', если она есть", () -> {
-            var list = $$(xpath("//android.widget.Button[@resource-id=\"navigate-to-login-prompt\"]"));
-            if (list.isEmpty() == false)
-                list.first().click();
+            authorizationScreen.checkAndClickAddAnotherAccountButton();
         });
         step("Заполняем поле 'Enter your email'", () -> {
-            authorizationPage.fillEnterYourEmailField();
+            authorizationScreen.fillEnterYourEmailField(applicationCredentials.login());
         });
         step("Нажимаем на текст страницы, чтобы убрать подсказку для ввода", () -> {
-            authorizationPage.clickLogInToContinueLabel();
+            authorizationScreen.clickLogInToContinueLabel();
         });
         step("Нажимаем на кнопку 'Continue'", () -> {
-            authorizationPage.clickContinueButton();
+            authorizationScreen.clickContinueButton();
         });
-
-        Thread.sleep(5000);
 
         step("Заполняем поле 'Enter password'", () -> {
-            authorizationPage.fillEnterPasswordButton();
+            authorizationScreen.fillEnterPasswordButton(applicationCredentials.password());
         });
         step("Нажимаем на кнопку 'Log in'", () -> {
-            authorizationPage.clickNextLogInButton();
+            authorizationScreen.clickNextLogInButton();
         });
 
-        Thread.sleep(20000);
-
         step("Проверяем заголовок экрана Boards", () -> {
-            authorizationPage.checkPageLabel();
+            boardsScreen.checkPageLabel();
         });
     }
 }
