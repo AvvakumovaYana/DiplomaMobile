@@ -10,7 +10,8 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 public class AttachMobile {
     @Attachment(value = "{attachName}", type = "image/png")
     public static byte[] screenshotAs(String attachName) {
-        return ((TakesScreenshot) getWebDriver()).getScreenshotAs(OutputType.BYTES);
+        //return ((TakesScreenshot) getWebDriver()).getScreenshotAs(OutputType.BYTES);
+        return new byte[0];
     }
 
     @Attachment(value = "Page source", type = "text/plain")

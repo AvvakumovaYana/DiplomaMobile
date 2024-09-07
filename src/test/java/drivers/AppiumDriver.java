@@ -29,6 +29,7 @@ public class AppiumDriver implements WebDriverProvider {
         caps.setCapability("platformName", deviceConfig.platformName());
         caps.setCapability("appium:deviceName", deviceConfig.deviceName());
         caps.setCapability("appium:automationName", deviceConfig.automationName());
+        //caps.setCapability("appium:noReset",true);
 
         ClassLoader classLoader = getClass().getClassLoader();
         File file = new File(classLoader.getResource(applicationConfig.app()).getFile());
