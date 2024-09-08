@@ -1,5 +1,5 @@
 # Проект по автоматизации тестирования для компании [<img width="35%" title="Trello" src="media/logo/Trello-logo.png"/>](https://trello.com/)
-> Trello — облачная программа для управления проектами небольших групп, разработанная Fog Creek Software. 
+> Trello — облачная программа для управления проектами небольших групп, разработанная Fog Creek Software.
 ---
 
 ## Содержание:
@@ -67,40 +67,56 @@
 * <code>BROWSER</code> – браузер, в котором будут выполняться тесты. По умолчанию - <code>chrome</code>.
 * <code>BROWSER_VERSION</code> – версия браузера, в которой будут выполняться тесты. По умолчанию - <code>-</code>.
 * <code>BROWSER_SIZE</code> – размер окна браузера, в котором будут выполняться тесты. По умолчанию - <code>1920x1080</code>.
-* <code>Wdhost</code> – адрес selenoid для удаленного запуска тестов. 
-* <code>ApiKey</code> – ключ для доступа к Api. 
-* <code>ApiToken</code> – токен для доступа к Api.
-  
-***Параметры запуска для UI и API:***
+* <code>Wdhost</code> – адрес Selenoid для удаленного запуска тестов.
+* <code>apiKey</code> – ключ для доступа к Api.
+* <code>token</code> – токен для доступа к Api.
+* <code>login</code> – логин от учетной записи Trello.
+* <code>password</code> – пароль от учетной записи Trello.
+* <code>wdLogin</code> – логин от учетной записи Selenoid.
+* <code>wdPassword</code> – пароль от учетной записи Selenoid.
+
+***Параметры запуска для UI и Api:***
 ```
-clean
-${TEST_TASK}
+clean ${TEST_TASK}
 -DBrowser=${BROWSER}
 -DChromeVersion=${CHROME_VERSION}
 -DFirefoxVersion=${FIREFOX_VERSION}
 -DBrowserSize=${BROWSER_SIZE}
 -DWdhost=${WDHOST}
--Dapikey=${ApiKey}
--Dapitoken=${ApiToken}
+-DapiKey=${apiKey}
+-Dtoken=${token}
+-Dlogin=${login}
+-Dpassword=${password}
+-DwdLogin=${wdLogin}
+-DwdPassword=${wdPassword}
 ```
 
 ***Важно!***
 ```
-Для запуска Web-тестов данного проекта необходимо в парамеры сборки Jenkins добавить файл "Cookies.data".
-Данный файл генерируется при локальном запуске Web-тестов.
-Файл содрежит куки, необходимые для авторизации на тестрируемой странице.
+Для запуска тестов данного проекта необходимо установить в настройках сборки apiKey и token от API Trello, login и password от существующего аккаунта Trello, а также wdLogin и wdPassword от учетной записи на сервере Selenoid.
 ```
 
 Для запуска сборки необходимо перейти в раздел <code>Собрать с параметрами</code>, задать параметры и нажать кнопку <code>Собрать</code>.
 
 <p align="center">
-<img title="Jenkins" src="media/screenshots/JParameters1.png"> 
-<img title="Jenkins" src="media/screenshots/JParameters2.png">
+<img title="Jenkins" src="media/screenshots/JParameters.png">
 </p>
 
 ***Параметры запуска для Mobile:***
 ```
-clean main_mobile
+clean
+main_mobile
+-DapiKey=${apiKey}
+-Dtoken=${token}
+-Dlogin=${login}
+-Dpassword=${password}
+-DbrowserstackUsername=${browserstackUsername}
+-DbrowserstackPassword=${browserstackPassword}
+```
+
+***Важно!***
+```
+Для запуска тестов данного проекта необходимо установить в настройках сборки apiKey и token от API Trello, login и password от существующего аккаунта Trello, а также browserstackUsername и browserstackPassword от аккаунта BrowserStack.
 ```
 
 После выполнения сборки, в блоке <code>История сборок</code> напротив номера сборки появится значок <code>Allure Report</code>, при клике на который открывается страница со сформированным html-отчетом,
@@ -111,7 +127,7 @@ clean main_mobile
 </p>
 
 ---
-## <img width="4%" style="vertical-align:middle" title="Allure_Report" src="media/logo/Allure_Report.svg"> Интеграция с [Allure Report](https://jenkins.autotests.cloud/job/DiplomaAvvakumovaYanaMobile/2/allure/)
+## <img width="4%" style="vertical-align:middle" title="Allure_Report" src="media/logo/Allure_Report.svg"> Интеграция с [Allure Report](https://jenkins.autotests.cloud/job/DiplomaAvvakumovaYanaMobile/allure/)
 `Allure Report` - инструмент для генерации и визуализации отчетов о выполнении тестов, который позволяет представлять результаты тестирования в наглядной и удобной форме.
 
 ### Диаграмма прохождения тестов
@@ -148,5 +164,6 @@ clean main_mobile
 
 В отчетах Allure для каждого теста прикреплен не только скриншот, но и видео прохождения теста.
 <p align="center">
-  <img title="Selenoid Video" src="media/screenshots/Browser.gif">
+  <img title="Browserstack Video" src="media/screenshots/Browser.gif">
 </p>
+

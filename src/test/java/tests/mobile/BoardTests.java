@@ -1,5 +1,6 @@
 package tests.mobile;
 
+import io.qameta.allure.AllureId;
 import io.qameta.allure.Owner;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -18,6 +19,7 @@ public class BoardTests extends TestBase {
     private final BoardsScreen boardsScreen = new BoardsScreen();
 
     @Test
+    @AllureId("34394")
     @DisplayName("Проверка создания колонки на доске")
     void addListTest() {
         String newListName = "List name " + LocalDateTime.now();
@@ -42,6 +44,7 @@ public class BoardTests extends TestBase {
     }
 
     @Test
+    @AllureId("34393")
     @DisplayName("Проверка удаления колонки с доски")
     void deleteListTest() {
         String newListName = "List name " + LocalDateTime.now();
@@ -66,6 +69,7 @@ public class BoardTests extends TestBase {
     }
 
     @Test
+    @AllureId("34392")
     @DisplayName("Проверка удаления карточки из колонки")
     void deleteCardTest() {
         var list = step("Создаем колонку через API", () -> {
