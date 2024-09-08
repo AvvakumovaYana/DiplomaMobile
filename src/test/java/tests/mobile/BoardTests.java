@@ -95,8 +95,7 @@ public class BoardTests extends TestBase {
         });
         step("Проверяем через API, что карточка отсутствует", () -> {
             sleep(1000);
-            var newCard = cardsApi.getCard(card);
-            assertThat(newCard).isNull();
+            assertThat(cardsApi.isCardExists(card)).isFalse();
         });
     }
 }

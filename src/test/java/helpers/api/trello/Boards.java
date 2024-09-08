@@ -11,7 +11,7 @@ public class Boards {
     public BoardModel createBoard(String name) {
         return given(requestSpec)
                 .when()
-                .post("/boards/?name=" + name+"&defaultLists=false")
+                .post("/boards/?name=" + name + "&defaultLists=false")
                 .then()
                 .spec(responseSpec)
                 .statusCode(200)

@@ -18,14 +18,12 @@ public class Cards {
                 .extract().as(CardModel.class);
     }
 
-    public CardModel getCard(CardModel card) {
+    public boolean isCardExists(CardModel card) {
         var result = given(requestSpec)
                 .when()
                 .get("/cards/" + card.getId())
                 .then()
                 .spec(responseSpec);
-        if (result.extract().statusCode() == 200)
-            return result.extract().as(CardModel.class);
-        return null;
+        return result.extract().statusCode() == 200;
     }
 }
