@@ -18,22 +18,6 @@ public class Boards {
                 .extract().as(BoardModel.class);
     }
 
-    public BoardModel getBoard(String id, int statusCode) {
-        var result = given(requestSpec)
-                .when()
-                .get("/boards/" + id)
-                .then()
-                .spec(responseSpec)
-                .statusCode(statusCode);
-        if (statusCode == 200)
-            return result.extract().as(BoardModel.class);
-        return null;
-    }
-
-    public BoardModel getBoard(String id) {
-        return getBoard(id, 200);
-    }
-
     public void deleteBoard(String boardId) {
         given(requestSpec)
                 .when()
@@ -45,19 +29,6 @@ public class Boards {
 
     public void deleteBoard(BoardModel board) {
         deleteBoard(board.getId());
-    }
-
-    public void updateBoardName(BoardModel board, String name) {
-        BoardModel body = new BoardModel();
-        body.setName(name);
-        given(requestSpec)
-                .when()
-                .body(body)
-                .put("/boards/" + board.getId())
-                .then()
-                .spec(responseSpec)
-                .statusCode(200)
-                .extract().as(BoardModel.class);
     }
 
     public ListModel[] getLists(BoardModel board) {

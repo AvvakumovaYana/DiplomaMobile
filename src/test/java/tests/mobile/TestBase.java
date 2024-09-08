@@ -19,7 +19,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import pages.mobile.AuthorizationScreen;
 import pages.mobile.BoardsScreen;
-import pages.mobile.NotificationScreen;
 
 import java.util.Objects;
 
@@ -85,11 +84,11 @@ public class TestBase {
             authorizationScreen.clickLogInButton();
         });
         step("Нажимаем на кнопку 'SIGN IN WITH EMAIL'", () -> {
-            authorizationScreen.clickSingInWithEmailButton();
+            authorizationScreen.clickSignInWithEmailButton();
         });
 
         step("Нажимаем на кнопку 'Add another account', если она есть", () -> {
-            authorizationScreen.checkAndClickAddAnotherAccountButton();
+            authorizationScreen.clickAddAnotherAccountButtonIfExists();
         });
         step("Заполняем поле 'Enter your email'", () -> {
             authorizationScreen.fillEnterYourEmailField(applicationCredentials.login());
@@ -102,14 +101,10 @@ public class TestBase {
         });
 
         step("Заполняем поле 'Enter password'", () -> {
-            authorizationScreen.fillEnterPasswordButton(applicationCredentials.password());
+            authorizationScreen.fillEnterPasswordField(applicationCredentials.password());
         });
         step("Нажимаем на кнопку 'Log in'", () -> {
             authorizationScreen.clickNextLogInButton();
-        });
-        step("Пропустить вопросы", () -> {
-            //notificationScreen.clickCloseButton();
-            //boardsScreen.clickDismissButton();
         });
         step("Проверяем заголовок экрана Boards", () -> {
             boardsScreen.checkPageLabel();

@@ -28,13 +28,4 @@ public class Cards {
             return result.extract().as(CardModel.class);
         return null;
     }
-
-    public void deleteCard(CardModel card) {
-        given(requestSpec)
-                .when()
-                .delete("/cards/" + card.getId())
-                .then()
-                .spec(responseSpec)
-                .statusCode(200);
-    }
 }

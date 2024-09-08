@@ -9,11 +9,11 @@ import static org.openqa.selenium.By.xpath;
 
 public class AuthorizationScreen extends BaseScreen {
     private final SelenideElement logInButton = $(xpath("//androidx.compose.ui.platform.ComposeView/android.view.View/android.view.View[3]/android.widget.Button"));
-    private final SelenideElement singInWithEmailButton = $(id("com.trello:id/email"));
+    private final SelenideElement signInWithEmailButton = $(id("com.trello:id/email"));
     private final SelenideElement enterYourEmailField = $(xpath("//android.widget.EditText[@resource-id=\"username\"]"));
     private final SelenideElement logInToContinueLabel = $(xpath("//*[@text=\"Log in to continue\"]"));
     private final SelenideElement continueButton = $(xpath("//android.widget.Button[@resource-id=\"login-submit\"]"));
-    private final SelenideElement enterPasswordButton = $(xpath("//android.widget.EditText[@resource-id=\"password\"]"));
+    private final SelenideElement enterPasswordField = $(xpath("//android.widget.EditText[@resource-id=\"password\"]"));
     private final SelenideElement nextLogInButton = $(xpath("//android.widget.Button[@resource-id=\"login-submit\"]"));
     private final SelenideElement trelloLogo = $(xpath("//android.widget.Image[@text=\"Trello\"]"));
 
@@ -21,8 +21,8 @@ public class AuthorizationScreen extends BaseScreen {
         logInButton.click();
     }
 
-    public void clickSingInWithEmailButton() throws InterruptedException {
-        singInWithEmailButton.click();
+    public void clickSignInWithEmailButton() throws InterruptedException {
+        signInWithEmailButton.click();
         ensureElement(trelloLogo, 20);
     }
 
@@ -39,16 +39,16 @@ public class AuthorizationScreen extends BaseScreen {
         continueButton.click();
     }
 
-    public void fillEnterPasswordButton(String password) throws InterruptedException {
-        ensureElement(enterPasswordButton, 10);
-        enterPasswordButton.sendKeys(password);
+    public void fillEnterPasswordField(String password) throws InterruptedException {
+        ensureElement(enterPasswordField, 10);
+        enterPasswordField.sendKeys(password);
     }
 
     public void clickNextLogInButton() {
         nextLogInButton.click();
     }
 
-    public void checkAndClickAddAnotherAccountButton() {
+    public void clickAddAnotherAccountButtonIfExists() {
         var list = $$(xpath("//android.widget.Button[@resource-id=\"navigate-to-login-prompt\"]"));
         if (!list.isEmpty())
             list.first().click();

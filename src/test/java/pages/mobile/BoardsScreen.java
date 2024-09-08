@@ -11,7 +11,6 @@ public class BoardsScreen extends BaseScreen {
     private final SelenideElement hamburgerButton = $(xpath("//android.widget.ImageButton[@content-desc=\"Open drawer\"]"));
     private final SelenideElement pageLabel = $(xpath("//android.widget.TextView[@text=\"Boards\"]"));
     private final SelenideElement boardRow = $(xpath("//android.view.View[@resource-id=\"boardRow\"]"));
-    private final SelenideElement dismissButton = $(xpath("//android.widget.Button[@text=\"DISMISS\"]"));
 
     private final SelenideElement addListButton = $(xpath("//android.widget.Button[@resource-id=\"com.trello:id/add_list_button\"]"));
     private final SelenideElement listNameField = $(xpath("//android.widget.EditText[@resource-id=\"com.trello:id/list_name_edit_text\"]"));
@@ -76,11 +75,5 @@ public class BoardsScreen extends BaseScreen {
 
     public void clickSaveButton() {
         saveButton.click();
-    }
-
-    public BoardsScreen clickDismissButton() throws InterruptedException {
-        ensureElement(dismissButton, 10);
-        dismissButton.click();
-        return this;
     }
 }
