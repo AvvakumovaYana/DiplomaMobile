@@ -1,13 +1,16 @@
 package pages.mobile;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+
+import java.time.Duration;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 import static io.appium.java_client.AppiumBy.id;
 import static org.openqa.selenium.By.xpath;
 
-public class AuthorizationScreen extends BaseScreen {
+public class AuthorizationScreen {
     private final SelenideElement logInButton = $(xpath("//androidx.compose.ui.platform.ComposeView/android.view.View/android.view.View[3]/android.widget.Button"));
     private final SelenideElement signInWithEmailButton = $(id("com.trello:id/email"));
     private final SelenideElement enterYourEmailField = $(xpath("//android.widget.EditText[@resource-id=\"username\"]"));
@@ -21,9 +24,9 @@ public class AuthorizationScreen extends BaseScreen {
         logInButton.click();
     }
 
-    public void clickSignInWithEmailButton() throws InterruptedException {
+    public void clickSignInWithEmailButton() {
         signInWithEmailButton.click();
-        ensureElement(trelloLogo, 20);
+        trelloLogo.shouldBe(Condition.visible, Duration.ofSeconds(20));
     }
 
     public void fillEnterYourEmailField(String login) {
@@ -39,8 +42,8 @@ public class AuthorizationScreen extends BaseScreen {
         continueButton.click();
     }
 
-    public void fillEnterPasswordField(String password) throws InterruptedException {
-        ensureElement(enterPasswordField, 10);
+    public void fillEnterPasswordField(String password) {
+        enterPasswordField.shouldBe(Condition.visible, Duration.ofSeconds(10));
         enterPasswordField.sendKeys(password);
     }
 

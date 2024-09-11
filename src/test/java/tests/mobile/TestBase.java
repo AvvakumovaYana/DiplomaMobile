@@ -27,14 +27,12 @@ import static com.codeborne.selenide.Selenide.open;
 import static io.qameta.allure.Allure.step;
 
 public class TestBase {
-    private static final ApplicationCredentials applicationCredentials = ConfigFactory.create(ApplicationCredentials.class, System.getProperties());
-    private static final AuthorizationScreen authorizationScreen = new AuthorizationScreen();
-    private static final BoardsScreen boardsScreen = new BoardsScreen();
-
     protected final static Boards boardsApi = new Boards();
     protected final static Lists listsApi = new Lists();
     protected final static Cards cardsApi = new Cards();
-
+    private static final ApplicationCredentials applicationCredentials = ConfigFactory.create(ApplicationCredentials.class, System.getProperties());
+    private static final AuthorizationScreen authorizationScreen = new AuthorizationScreen();
+    private static final BoardsScreen boardsScreen = new BoardsScreen();
     private static final String boardName = "Board for mobile test";
     protected static BoardModel board;
 
@@ -56,25 +54,6 @@ public class TestBase {
     @AfterAll
     static void DeleteBoard() {
         boardsApi.deleteBoard(board);
-    }
-
-    @BeforeEach
-    void beforeEach() {
-        SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
-
-        login();
-    }
-
-    @AfterEach
-    void addAttachments() {
-        String sessionId = Selenide.sessionId().toString();
-        System.out.println(sessionId);
-
-        AttachMobile.pageSource();
-        closeWebDriver();
-
-        if (Objects.equals(System.getProperty("device"), "browserstack"))
-            AttachMobile.addVideo(sessionId);
     }
 
     private static void login() {
@@ -109,5 +88,24 @@ public class TestBase {
         step("Проверяем заголовок экрана Boards", () -> {
             boardsScreen.checkPageLabel();
         });
+    }
+
+    @BeforeEach
+    void beforeEach() {
+        SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
+
+        login();
+    }
+
+    @AfterEach
+    void addAttachments() {
+        String sessionId = Selenide.sessionId().toString();
+        System.out.println(sessionId);
+
+        AttachMobile.pageSource();
+        closeWebDriver();
+
+        if (Objects.equals(System.getProperty("device"), "browserstack"))
+            AttachMobile.addVideo(sessionId);
     }
 }
